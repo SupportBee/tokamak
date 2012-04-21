@@ -3,11 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../tokamak.rb') unless de
 module Tokamak
   module Hook
     module Rails
-
-      class Tokamak < ::ActionView::TemplateHandler
-        include ::ActionView::TemplateHandlers::Compilable
-
-        def compile(template)
+      class Tokamak
+        def self.call(template)
           "@content_type_helpers = ::Tokamak.builder_lookup(self.response.content_type).helper; " +
           "extend @content_type_helpers; " +
           "extend Tokamak::Hook::Rails::Helpers; " +
